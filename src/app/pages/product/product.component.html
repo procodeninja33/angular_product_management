@@ -1,0 +1,26 @@
+<div class="container pt-3">
+    <li class="breadcrumb-item">
+        > &nbsp;
+        <a routerLink="/">Home</a> &nbsp;
+        > &nbsp;
+        <a routerLink="/product/{{id}}">{{product.title}} </a>
+    </li><br />
+
+    <div class="row">
+
+        <div class="col-4">
+            <img [src]="product.image_url" class="product-image">
+        </div>
+
+        <div class="col-6 pt-5">
+            <h5 class="pl-2"><b> {{product.title}} </b></h5>
+            <h5 class="pl-2" [ngClass]="product.in_stock ? 'text-success' : 'text-secondary'">
+                {{product.in_stock ? 'In Stock' : 'Out of Stock'}}</h5>
+            <h5 class="pl-2"> Rating : {{product.rating}} / 5 </h5>
+            <h5 class="pl-2"> Price : ₹ {{product.price}} </h5>
+            <h5 class="pl-2"> Location : {{product.location_available}} </h5>
+            <h5 class="pl-2"> Description : </h5>
+            <h5 class="pl-2 text-secondary" [title]="product.description">{{product.description}}</h5>
+        </div>
+    </div>
+</div>

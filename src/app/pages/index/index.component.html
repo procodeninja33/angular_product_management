@@ -1,0 +1,35 @@
+
+<div class="container pt-3">
+    <div class="row">
+        <div class="col-4" *ngFor="let product of products">
+            <div class="border m-1">
+                <div class="image-container">
+                    <img [src]="product.image_url" class="product-image">
+                    <div class="middle btn-group">
+                        <button class="btn btn-success" [routerLink]="['/edit-product', product.id]"> Edit </button>
+                        &nbsp;
+                        <button class="btn btn-danger" (click)="deleteProduct(product.id)"> Delete </button>
+                    </div>
+                    <h5 class="pl-2"><b><a [routerLink]="['/product', product.id]"> {{product.title}} </a></b></h5>
+                    <h5 class="pl-2"> Rating : {{product.rating}} / 5 </h5>
+                    <h5 class="pl-2"> Description : </h5>
+                    <p class="pl-2 text-truncate" [title]="product.description">{{product.description}}</p>
+                </div>
+            </div>
+        </div>
+    </div><br>
+
+    <div *ngIf="!products.length" class="text-center">
+        <h3>
+            <small class="text-muted">Record not found.</small>
+        </h3>
+    </div>
+
+    <div class="row">
+        <div class="col-12">
+            <button class="btn btn-primary float-right" type="button" routerLink="/add-product">
+                Add Product
+            </button>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,113 @@
+<div class="container pt-3">
+
+    <li class="breadcrumb-item">
+        > &nbsp;
+        <a routerLink="/">Home</a> &nbsp;
+        > &nbsp;
+        <a routerLink="/add-product" *ngIf="!id">Add-Product</a>
+        <a routerLink="/edit-product/{{id}}" *ngIf="id">Edit-Product</a>
+    </li><br />
+
+    <div class="bg-light">
+        <form [formGroup]="productForm" (ngSubmit)="onSubmit()" class="p-5">
+            <div class="form-group">
+                <label>Title</label>
+                <input formControlName="title" type="text" class="form-control" placeholder="Title"
+                    [ngClass]="{ 'is-invalid' : productForm.controls.title.errors && submitted}">
+                <div *ngIf="productForm.controls.title.errors && submitted" class="invalid-feedback">
+                    <div *ngIf="productForm.controls.title.errors?.required">
+                        Title is required.
+                    </div>
+                    <div
+                        *ngIf="productForm.controls.title.errors?.minlength || productForm.controls.title.errors?.maxlength">
+                        Minimum 2 and Maximum 50 characters long.
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Image URL</label>
+                <input formControlName="image_url" type="text" class="form-control" placeholder="Image URL"
+                    [ngClass]="{ 'is-invalid' : productForm.controls.image_url.errors && submitted}">
+                <div *ngIf="productForm.controls.image_url.errors && submitted" class="invalid-feedback">
+                    <div *ngIf="productForm.controls.image_url.errors?.required">
+                        Image URL is required.
+                    </div>
+                    <div *ngIf="productForm.controls.image_url.errors?.pattern">
+                        Image URL is not valid.
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Description</label>
+                <textarea formControlName="description" class="form-control" style="height: 150px"
+                    [ngClass]="{ 'is-invalid' : productForm.controls.description.errors && submitted}"> </textarea>
+                <div *ngIf="productForm.controls.description.errors && submitted" class="invalid-feedback">
+                    <div *ngIf="productForm.controls.description.errors?.required">
+                        Description is required.
+                    </div>
+                    <div
+                        *ngIf="productForm.controls.description.errors?.minlength || productForm.controls.description.errors?.maxlength">
+                        Minimum 150 and Maximum 800 characters long.
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="priceRange">Price ( ₹ {{productForm.value.price}} )</label>
+                <input formControlName="price" type="range" class="custom-range" min="100" max="10000" id="priceRange">
+            </div>
+
+            <div class="form-group">
+                <label>Rating</label>
+                <input formControlName="rating" type="number" class="form-control" min="1" max="5"
+                    [ngClass]="{ 'is-invalid' : productForm.controls.rating.errors && submitted}">
+                <div *ngIf="productForm.controls.rating.errors && submitted" class="invalid-feedback">
+                    <div *ngIf="productForm.controls.rating.errors?.required">
+                        Rating is required.
+                    </div>
+                    <div *ngIf="productForm.controls.rating.errors?.min || productForm.controls.rating.errors?.max">
+                        Rating should be 1 to 5.
+                    </div>
+                </div>
+            </div>
+
+            <label>City</label>
+            <div class="form-row custom-control custom-checkbox">
+                <div class="form-group col-md-3">
+                    <input type="checkbox" class="custom-control-input" id="Ahmedabad"
+                        (change)="toggleCity('Ahmedabad')"
+                        [checked]="productForm.value.location_available.indexOf('Ahmedabad') > -1">
+                    <label class="custom-control-label" for="Ahmedabad">Ahmedabad</label>
+                </div>
+                <div class="form-group col-md-3">
+                    <input type="checkbox" class="custom-control-input" id="Gandhinagar"
+                        (change)="toggleCity('Gandhinagar')"
+                        [checked]="productForm.value.location_available.indexOf('Gandhinagar') > -1">
+                    <label class="custom-control-label" for="Gandhinagar">Gandhinagar</label>
+                </div>
+                <div class="form-group col-md-3">
+                    <input type="checkbox" class="custom-control-input" id="Baroda" (change)="toggleCity('Baroda')"
+                        [checked]="productForm.value.location_available.indexOf('Baroda') > -1">
+                    <label class="custom-control-label" for="Baroda">Baroda</label>
+                </div>
+                <div class="form-group col-md-3">
+                    <input type="checkbox" class="custom-control-input" id="Rajkot" (change)="toggleCity('Rajkot')"
+                        [checked]="productForm.value.location_available.indexOf('Rajkot') > -1">
+                    <label class="custom-control-label" for="Rajkot">Rajkot</label>
+                </div>
+            </div><br>
+
+            <div class="form-row custom-control custom-switch">
+                <div class="col-md-3">
+                    <input formControlName="in_stock" type="checkbox" class="custom-control-input" id="stock">
+                    <label class="custom-control-label" for="stock"
+                        [ngClass]="productForm.value.in_stock ? 'text-primary' : 'text-secondary'">{{ productForm.value.in_stock ? 'In Stock' : 'Out of Stock'}}</label>
+                </div>
+            </div> <br>
+            <button type="button" class="btn btn-secondary" routerLink="/">Cancel</button> &nbsp;
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+    </div>
+</div>
